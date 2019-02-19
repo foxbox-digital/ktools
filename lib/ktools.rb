@@ -1,6 +1,20 @@
-require "ktools/version"
+require 'ktools/configuration'
+require 'ktools/version'
 
-module Ktools
-  class Error < StandardError; end
-  # Your code goes here...
+module KTools
+  class << self
+    attr_writer :configuration
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.reset
+    @configuration = Configuration.new
+  end
+
+  def self.configure
+    yield configuration
+  end
 end
