@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'ktools'
+
+ktools = KTools::Application.new(ARGV)
+ktools.start

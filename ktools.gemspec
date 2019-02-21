@@ -4,39 +4,39 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "ktools/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "ktools"
-  spec.version       = Ktools::VERSION
+  spec.name          = "k-tools"
+  spec.version       = KTools::VERSION
   spec.authors       = ["Fernando Schuindt"]
-  spec.email         = ["f.schuindtcs@gmail.com"]
+  spec.email         = ["fernando@foxbox.co"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "A set of Bash-like tools to manage DO K8s clusters."
+  spec.description   = "KTools is used to help manage, deploy and debug applications on Kubernetes environments."
+  spec.homepage      = "https://github.com/foxbox-studios/ktools"
   spec.license       = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+  spec.files = [
+    'lib/ktools.rb',
+    'lib/ktools/application.rb',
+    'lib/ktools/configuration.rb',
+    'lib/ktools/kdb.rb',
+    'lib/ktools/setup.rb',
+    'lib/ktools/sh.rb',
+    'lib/ktools/version.rb',
+    'lib/ktools/tools/deliver.rb',
+    'lib/ktools/tools/help.rb',
+    'lib/ktools/tools/spy.rb',
+    'lib/ktools/tools/swap.rb'
+  ]
 
-    spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-    spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
-
-  # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.bindir        = "bin"
+  spec.executables   = ["kt"]
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+
+  spec.add_dependency "pry", "~> 0.12.2"
+  spec.add_dependency "colorize", "~> 0.8.1"
+  spec.add_dependency "oj", "~> 3.7"
 end
