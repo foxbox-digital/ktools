@@ -23,9 +23,9 @@ module KTools
 
           project = origin[/(?<=:)([^.]*)/]
           do_fail("Can't find your project name.") if project.empty?
-          do_fail("Missing deployment name.") if @subject.empty?
 
-          image = "#{registry}#{project}:#{@subject}"
+          image_tag = "forcedAt#{Time.now.to_i}"
+          image = "#{registry}#{project}:#{image_tag}"
 
           puts "Forcing deployment..."
           puts "Project: #{project}"

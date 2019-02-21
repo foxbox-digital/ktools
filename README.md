@@ -57,7 +57,7 @@ $ kt spy drop all appslug
 
 ### Forcing deployment of a application
 ```bash
-$ kt deliver force deploy deploy-name
+$ kt deliver force deploy
 ```
 
 ### Entering a running application pod's Bash
