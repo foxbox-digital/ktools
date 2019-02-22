@@ -19,6 +19,8 @@ It features:
 - Impress your dog.
 - Impress your cat.
 
+See our [CHANGELOG](https://github.com/foxbox-studios/ktools/blob/master/CHANGELOG.md).
+
 # Requirements
 
 Before going any forward, you need to have:
