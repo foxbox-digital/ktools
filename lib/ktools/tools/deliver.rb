@@ -29,7 +29,6 @@ module KTools
 
           puts "Forcing deployment..."
           puts "Project: #{project}"
-          puts "Deployment Name: #{@subject}"
           puts "Docker Image: #{image}"
 
           puts ""
@@ -40,7 +39,7 @@ module KTools
           Sh.ell_in!("docker build -t #{image} .")
           Sh.ell_in!("docker push #{image}")
 
-          Sh.ell_in!("./kdeliver force deploy #{@subject} #{image}")
+          Sh.ell_in!("./kdeliver force deploy #{image}")
         when 'get bash'
           puts "Opening live Bash..."
           puts ""
