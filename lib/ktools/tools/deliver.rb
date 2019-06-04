@@ -9,6 +9,7 @@ module KTools
         @action = "#{args[0]} #{args[1]}"
         @subject = args[2]
         @argument = args[3]
+        @opt = args[4]
       end
 
       def start
@@ -45,7 +46,7 @@ module KTools
           puts ""
 
           pod = get_pod
-          container = "#{@subject}-container"
+          container = (@argument ? @argument : "#{@subject}-container")
 
           pod_cmd = "kubectl exec -ti -n default #{pod}"
           bash_cmd = "-c #{container} /bin/bash"
@@ -58,9 +59,9 @@ module KTools
           pod = get_pod
 
           if @argument == "--tail"
-            Sh.ell_in!("kubectl logs -f #{pod}")
+            Sh.ell_in!("kubectl logs -f #{pod} #{@opt}")
           else
-            Sh.ell_in!("kubectl logs #{pod}")
+            Sh.ell_in!("kubectl logs #{pod} #{@argument}")
           end
         else
           Help.display
