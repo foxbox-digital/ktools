@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 *Clean.*
 
+## [0.2.0] - 2019-10-03
+### Added
+- Support to "foxbox" namespaced and Linkerd meshed resources.
+
 ## [0.1.6] - 2019-06-04
 ### Added
 - Support to pods/deployments with more than one container.
