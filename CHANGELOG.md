@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 *Clean.*
 
+## [0.2.1] - 2019-10-03
+### Fixed
+- Log access issue with multiple containers.
+
 ## [0.2.0] - 2019-10-03
 ### Added
 - Support to "foxbox" namespaced and Linkerd meshed resources.

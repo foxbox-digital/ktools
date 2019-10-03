@@ -57,7 +57,7 @@ module KTools
           puts ""
 
           pod = get_pod
-          container = "#{@subject}-container"
+          container = get_container(pod)
 
           if @argument == "--tail"
             Sh.ell_in!("kubectl logs -f #{pod} #{@opt} -n foxbox -c #{container}")
@@ -79,6 +79,11 @@ module KTools
       def get_pod
         pods = Sh.elld!("kubectl get pods -n foxbox | grep #{@subject}")
         pods[/(^\S*)/]
+      end
+
+      def get_container(pod)
+        containers = Sh.elld!("kubectl get pods #{pod} -n foxbox -o jsonpath='{.spec.containers[*].name}'")
+        containers[/(^\S*)/]
       end
     end
   end
