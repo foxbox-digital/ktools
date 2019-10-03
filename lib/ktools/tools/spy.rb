@@ -21,31 +21,23 @@ module KTools
 
           registry_name = "#{@subject}-registry"
 
-          Sh.ell("kubectl delete secret #{registry_name}")
+          Sh.ell("kubectl delete secret #{registry_name} -n foxbox")
         when 'create registry'
           puts "Creating Docker Registry for #{@subject}..."
           puts ""
 
           registry_name = "#{@subject}-registry"
           env_path = "#{@cfg["secrets"]}/#{@env}/#{@subject}"
-          env_file = "#{env_path}/registry.json"
-          envd = Oj.load(File.read(env_file))
+          registry_file = "#{env_path}/create_registry.json"
 
-          kube_cmd = <<~HEREDOC
-            kubectl create secret docker-registry #{registry_name} \
-              --docker-server=#{envd["KSPY_DOCKER_SERVER"]} \
-              --docker-username=#{envd["KSPY_DOCKER_USER"]} \
-              --docker-password=#{envd["KSPY_DOCKER_PASSWORD"]}
-          HEREDOC
-
-          puts Sh.ellb!(kube_cmd)
+          puts Sh.ellb!("kubectl create -f #{registry_file} -n foxbox")
         when 'drop config'
           puts "Deleting configMap for #{@subject}..."
           puts ""
 
           config_name = "#{@subject}-config-map"
 
-          Sh.ell("kubectl delete configMap #{config_name}")
+          Sh.ell("kubectl delete configMap #{config_name} -n foxbox")
         when 'apply config'
           puts "Updating/Creating configMap for #{@subject}..."
 
@@ -60,14 +52,14 @@ module KTools
           env_path = "#{@cfg["secrets"]}/#{@env}/#{@subject}"
           config_map_file = "#{env_path}/config_map.yml"
 
-          Sh.ell("kubectl apply -f #{config_map_file}")
+          Sh.ell("kubectl apply -f #{config_map_file} -n foxbox")
         when 'drop ingress'
           puts "Deleting ingress for #{@subject}..."
           puts ""
 
           ingress_name = "#{@subject}-ingress"
 
-          Sh.ell("kubectl delete ingress #{ingress_name}")
+          Sh.ell("kubectl delete ingress #{ingress_name} -n foxbox")
         when 'apply ingress'
           puts "Updating/Creating ingress for #{@subject}..."
 
@@ -82,7 +74,7 @@ module KTools
           env_path = "#{@cfg["secrets"]}/#{@env}/#{@subject}"
           ingress_file = "#{env_path}/ingress.yml"
 
-          Sh.ell("kubectl apply -f #{ingress_file}")
+          Sh.ell("kubectl apply -f #{ingress_file} -n foxbox")
         when 'drop all'
           puts "Deleting ALL Kubernetes resources of #{@subject}..."
 
@@ -92,11 +84,11 @@ module KTools
           puts "Starting..."
 
           drop_cmd = <<~HEREDOC
-            kubectl delete deployment #{@subject}-deployment &&
-            kubectl delete configMap #{@subject}-config-map &&
-            kubectl delete ingress #{@subject}-ingress &&
-            kubectl delete service #{@subject}-service &&
-            kubectl delete secret #{@subject}-registry
+            kubectl delete deployment #{@subject}-deployment -n foxbox &&
+            kubectl delete configMap #{@subject}-config-map -n foxbox &&
+            kubectl delete ingress #{@subject}-ingress -n foxbox &&
+            kubectl delete service #{@subject}-service -n foxbox &&
+            kubectl delete secret #{@subject}-registry -n foxbox
           HEREDOC
 
           Sh.ellb!(drop_cmd)

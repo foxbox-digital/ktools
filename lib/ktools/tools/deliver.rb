@@ -48,7 +48,7 @@ module KTools
           pod = get_pod
           container = (@argument ? @argument : "#{@subject}-container")
 
-          pod_cmd = "kubectl exec -ti -n default #{pod}"
+          pod_cmd = "kubectl exec -ti -n foxbox #{pod}"
           bash_cmd = "-c #{container} /bin/bash"
 
           Sh.ell_meta("#{pod_cmd} #{bash_cmd}")
@@ -57,11 +57,12 @@ module KTools
           puts ""
 
           pod = get_pod
+          container = "#{@subject}-container"
 
           if @argument == "--tail"
-            Sh.ell_in!("kubectl logs -f #{pod} #{@opt}")
+            Sh.ell_in!("kubectl logs -f #{pod} #{@opt} -n foxbox -c #{container}")
           else
-            Sh.ell_in!("kubectl logs #{pod} #{@argument}")
+            Sh.ell_in!("kubectl logs #{pod} #{@argument} -n foxbox -c #{container}")
           end
         else
           Help.display
@@ -76,7 +77,7 @@ module KTools
       end
 
       def get_pod
-        pods = Sh.elld!("kubectl get pods | grep #{@subject}")
+        pods = Sh.elld!("kubectl get pods -n foxbox | grep #{@subject}")
         pods[/(^\S*)/]
       end
     end
