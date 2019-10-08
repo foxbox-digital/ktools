@@ -49,7 +49,7 @@ module KTools
           container = (@argument ? @argument : "#{@subject}-container")
 
           pod_cmd = "kubectl exec -ti -n foxbox #{pod}"
-          bash_cmd = "-c #{container} /bin/bash"
+          bash_cmd = "/bin/bash"
 
           Sh.ell_meta("#{pod_cmd} #{bash_cmd}")
         when 'get logs'
